@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Meu Amor ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Parisienne&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+            color: #4a4a4a;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+            position: relative;
+            /* REMOVIDO: overflow-x: hidden; ou overflow: hidden; */
+            /* Se houver conteúdo que ultrapasse 100vh, ele será naturalmente rolável */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            width: 90%; /* Ajusta a largura para telas menores */
+            margin-top: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2; /* Garante que o container fique ACIMA da moldura e pétalas */
+            box-sizing: border-box; /* Inclui padding na largura total */
+        }
+
+        h1 {
+            font-family: 'Parisienne', cursive;
+            color: #d65a5a;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #b04e4e;
+            font-size: 2.2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .image-gif {
+            max-width: 100%;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-gif:hover {
+            transform: scale(1.03);
+        }
+
+        .poem {
+            font-style: italic;
+            border-left: 10px solid #d65a5a;
+            padding-left: 15px;
+            margin: 30px auto;
+            max-width: 90%;
+            text-align: left;
+            font-size: 1.4em;
+            color: #6a6a6a;
+        }
+
+        .signature {
+            margin-top: 50px;
+            font-family: 'Parisienne', cursive;
+            font-size: 2.5em;
+            color: #d65a5a;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Moldura de Imagens */
+        .frame-wrapper {
+            position: fixed; /* Fixa a moldura na tela */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Permite clicar no conteúdo abaixo */
+            z-index: 1; /* Fica entre o background e o conteúdo principal */
+            overflow: hidden; /* **MANTIDO AQUI** para cortar imagens que saem da tela */
+        }
+
+        .frame-image {
+            position: absolute;
+            opacity: 0.7;
+            animation: gentle-float 3s ease-in-out infinite alternate;
+        }
+
+        /* Posições e tamanhos para as 15 imagens da moldura */
+        /* Ajuste as porcentagens para que funcionem bem em diferentes tamanhos de tela */
+        /* Lado esquerdo */
+        .frame-image:nth-child(1) { top: 5%; left: 2%; width: 50px; }
+        .frame-image:nth-child(2) { top: 20%; left: 1%; width: 45px; animation-delay: 0.5s; }
+        .frame-image:nth-child(3) { top: 40%; left: 3%; width: 60px; animation-delay: 1s; }
+        .frame-image:nth-child(4) { top: 60%; left: 0.5%; width: 50px; animation-delay: 1.5s; }
+        .frame-image:nth-child(5) { top: 80%; left: 2.5%; width: 55px; animation-delay: 2s; }
+
+        /* Lado direito */
+        .frame-image:nth-child(6) { top: 5%; right: 2%; width: 55px; animation-delay: 0.2s; }
+        .frame-image:nth-child(7) { top: 20%; right: 1.5%; width: 48px; animation-delay: 0.7s; }
+        .frame-image:nth-child(8) { top: 40%; right: 2.5%; width: 65px; animation-delay: 1.2s; }
+        .frame-image:nth-child(9) { top: 60%; right: 0.8%; width: 52px; animation-delay: 1.7s; }
+        .frame-image:nth-child(10) { top: 80%; right: 3%; width: 60px; animation-delay: 2.2s; }
+
+        /* Topo e rodapé (espalhados) */
+        .frame-image:nth-child(11) { top: 2%; left: 20%; width: 40px; animation-delay: 2.5s; }
+        .frame-image:nth-child(12) { top: 2%; right: 20%; width: 45px; animation-delay: 3s; }
+        .frame-image:nth-child(13) { bottom: 2%; left: 25%; width: 50px; animation-delay: 3.5s; }
+        .frame-image:nth-child(14) { bottom: 2%; right: 25%; width: 48px; animation-delay: 4s; }
+        .frame-image:nth-child(15) { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; animation-delay: 4.5s; } /* Centralizada para destaque */
+
+        /* Animação para o movimento suave da moldura */
+        @keyframes gentle-float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(8px); } /* Move 8px para baixo */
+        }
+
+        /* --- Pétalas de Rosa Caindo --- */
+        .petals {
+            position: fixed; /* Fixa as pétalas na tela */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Permite clicar no conteúdo abaixo */
+            z-index: 0; /* Fica atrás de tudo, exceto o background */
+            overflow: hidden; /* **MANTIDO AQUI** para cortar pétalas que saem da tela */
+        }
+
+        .petal {
+            position: absolute;
+            background-color: #ffb6c1; /* Cor rosa claro */
+            border-radius: 50%; /* Formato de círculo para pétala */
+            opacity: 0.6;
+            animation: fall linear infinite;
+        }
+
+        /* Variações de tamanho e cor para as pétalas */
+        .petal:nth-child(odd) {
+            background-color: #ffc0cb; /* Rosa mais claro */
+        }
+        .petal:nth-child(even) {
+            background-color: #ff69b4; /* Rosa mais vibrante */
+        }
+        .petal:nth-child(3n) {
+            background-color: #ff1493; /* Rosa mais escuro/magenta */
+        }
+
+        /* Animação de queda e rotação */
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
+
+        /* Para telas menores que 768px (tablets em retrato e celulares) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                width: 95%; /* Ocupa mais largura em telas menores */
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            p, .poem {
+                font-size: 1em;
+            }
+            .signature {
+                font-size: 1.8em;
+            }
+
+            .frame-image {
+                opacity: 0.5; /* Um pouco mais transparente em telas pequenas */
+                width: 35px !important; /* Tamanho menor para todas as imagens da moldura */
+                /* Podemos esconder algumas imagens para não sobrecarregar */
+                &:nth-child(5),
+                &:nth-child(10),
+                &:nth-child(15) {
+                    display: none;
+                }
+            }
+            /* Ajustes finos para posicionamento em mobile se necessário */
+            .frame-image:nth-child(1) { left: 1%; top: 3%; }
+            .frame-image:nth-child(6) { right: 1%; top: 3%; }
+
+            /* Pétalas em mobile */
+            .petal {
+                width: 8px; /* Pétalas menores em mobile */
+                height: 8px;
+            }
+        }
+
+        /* Para telas ainda menores (celulares pequenos) */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 10px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.4em;
+            }
+            p, .poem {
+                font-size: 0.9em;
+            }
+            .signature {
+                font-size: 1.5em;
+            }
+
+            .frame-image {
+                width: 25px !important; /* Ainda menores */
+                /* Esconde ainda mais imagens */
+                &:nth-child(odd),
+                &:nth-child(even):nth-child(n+8) { /* Esconde todas as ímpares e as pares a partir da 8ª */
+                    display: none;
+                }
+            }
+
+            /* Pétalas em celulares muito pequenos */
+            .petal {
+                width: 6px; /* Pétalas ainda menores */
+                height: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="frame-wrapper">
+        <img src="ft 1.jpg" class="frame-image">
+        <img src="ft 2.jpg" class="frame-image">
+        <img src="ft 3.jpg" class="frame-image">
+        <img src="ft 4.jpg" class="frame-image">
+        <img src="ft 5.jpg" class="frame-image">
+        <img src="ft 6.jpg" class="frame-image">
+        <img src="ft 7.jpg" class="frame-image">
+        <img src="ft 8.jpg" class="frame-image">
+        <img src="ft 9.jpg" class="frame-image">
+        <img src="ft 10.jpg" class="frame-image">
+        <img src="ft 11.jpg" class="frame-image">
+        <img src="ft 12.jpg" class="frame-image">
+        <img src="ft 13.jpg" class="frame-image">
+        <img src="ft 14.jpg" class="frame-image">
+        <img src="ft 15.jpg" class="frame-image">
+    </div>
+
+    <div class="petals">
+        <div class="petal" style="left: 10%; animation-duration: 10s; animation-delay: 0s; width: 12px; height: 12px;"></div>
+        <div class="petal" style="left: 25%; animation-duration: 12s; animation-delay: 2s; width: 10px; height: 10px;"></div>
+        <div class="petal" style="left: 40%; animation-duration: 15s; animation-delay: 4s; width: 14px; height: 14px;"></div>
+        <div class="petal" style="left: 55%; animation-duration: 9s; animation-delay: 1s; width: 11px; height: 11px;"></div>
+        <div class="petal" style="left: 70%; animation-duration: 11s; animation-delay: 3s; width: 13px; height: 13px;"></div>
+        <div class="petal" style="left: 85%; animation-duration: 13s; animation-delay: 5s; width: 9px; height: 9px;"></div>
+        <div class="petal" style="left: 5%; animation-duration: 14s; animation-delay: 6s; width: 15px; height: 15px;"></div>
+        <div class="petal" style="left: 30%; animation-duration: 10s; animation-delay: 7s; width: 10px; height: 10px;"></div>
+        <div class="petal" style="left: 65%; animation-duration: 12s; animation-delay: 8s; width: 12px; height: 12px;"></div>
+        <div class="petal" style="left: 90%; animation-duration: 9s; animation-delay: 9s; width: 11px; height: 11px;"></div>
+    </div>
+
+    <div class="container">
+        <h1>Meu amor!</h1>
+
+        <img src="mc 1.gif" alt="Casal abraçando" class="image-gif">
+        <p>
+            Feliz aniversário amor da minha vida
+
+    Meu amor,
+    <br>
+    Nesse dia, quero te dizer
+    <br>
+    O quanto sua presença me faz bem,
+    <br>
+    E o quanto sou grata por ter você.
+
+        </p>
+        <p>
+            Você foi uma das melhores coisas que entrou na minha vida,
+            sem você não sei o que seria de mim, pois você é o meu ponto
+            seguro, minha força e que me faz querer ainda mais viver.
+            Nao consigo me imaginar sem você, porque você é o amor da
+            minha vida e sem você meu mundo não teria cor, pois seu jeito
+            de ser, já me alegra bastante meu amorr
+        </p>
+        <img src="hello-kitty-kiss.gif" alt="Casal abraçando" class="image-gif">
+        <h2>Meu amor,</h2>
+        <p>
+            Hoje é um dia muito especial, o seu aniversário de 16 anos!
+            Parece que foi ontem que nos conhecemos, e desde então, cada
+            dia ao seu lado tem sido uma aventura incrível. Você me faz 
+            rir todos os dias, me apoia nos momentos difíceis e me faz 
+            sentir a pessoa mais sortuda do mundo.
+
+        </p>
+        <p>
+            16 anos são apenas o começo de uma jornada incrível, e eu 
+            estou tão feliz por poder compartilhar essa jornada com você. 
+            Que este ano seja repleto de alegria, sucesso e momentos 
+            inesquecíveis. 
+            <br>
+            EU TEAMO MAIS QUE TUDO!
+        </p>
+
+        <img src="relâmpago mc.gif" alt="Coração animado" class="image-gif">
+        <h2>Um Poema para Você</h2>
+        <div class="poem">
+            <p>Seu sorriso me alegra,</p>
+            <p>Por mais que seja difícil de você mostrar.</p>
+            <p>Seus olhos me encantam,</p>
+            <p>São tão belos que não paro de pensar.</p>
+            <br>
+            <p>Meu amor por você é tão grande,</p>
+            <p>Que até eu não sei explicar.</p>
+            <p>Só sei que é muito grande,</p>
+            <p>Maior que os oceanos e o mar.</p>
+            <br>
+            <p>Desejo que você realize todos os seus sonhos</p>
+            <p>E que nunca pare de sonhar,</p>
+            <p>Pois seus sonhos são incríveis</p>
+            <p>E quero ver você os alcançar.</p>
+            <br>
+            <p>Eu te amo muito, meu amor,</p>
+            <p>E nada vai mudar o que eu sinto.</p>
+            <p>Porque você é minha vida</p>
+            <p>E eu não consigo viver sem isso.</p>
+            <br>
+            <p>A distância, para muitos, é uma dificuldade,</p>
+            <p>Para nós não é diferente.</p>
+            <p>Mas sinto que, se paciência tivermos,</p>
+            <p>Logo vou te ter aqui, presente.</p>
+        </div>
+        <img src="mc queen.gif" alt="Coração animado" class="image-gif">   
+        <h2>Pensamentos do Coração</h2>
+        <p>
+            Quero construir uma vida inteira de momentos inesquecíveis ao seu lado.
+            Sonho em envelhecer contigo, compartilhar cada amanhecer e cada pôr do sol,
+            e continuar descobrindo as maravilhas que a vida nos reserva, sempre juntos.
+        </p>
+
+        <img src="hello kitty beijo.gif" alt="Abraço carinhoso" class="image-gif">
+        <p>
+            Você é a pessoa que me inspira, me completa e me faz querer ser melhor a cada dia.
+            Obrigado(a) por ser você, por existir na minha vida e por me amar da forma mais pura e verdadeira.
+        </p>
+
+        <p class="signature">Com todo o meu amor, <br>Assinado por: Fferreiraaz</p>
+    </div>
+
+</body>
+</html>
